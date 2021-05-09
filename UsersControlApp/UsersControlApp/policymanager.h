@@ -8,6 +8,46 @@
 #include <iostream>
 #include <LM.h>
 #include <boost/log/trivial.hpp>
+#include <string>
+#include <sddl.h>
+
+// UI things
+namespace 
+{
+     const std::string UI_sep = "/------------------------------------------------------/\n";
+     // User menu
+     const std::string UI =
+          "Enter one of possible commands:\n"
+          "/------------------------------------------------------/\n"
+          "1 - Display information about system users\n"
+          "2 - Display information about local system groups\n"
+          "3 - Display information about global system groups\n"
+          "4 - Create a user\n"
+          "5 - Create a group\n"
+          "6 - Delete a user\n"
+          "7 - Delete a group\n"
+          "8 - Add user privilege\n"
+          "9 - Add group privilege\n"
+          "10 - Remove user privilege\n"
+          "11 - Remove group privilege\n"
+          "/------------------------------------------------------/\n";
+
+     // Enum for user's choice
+     enum userChoices {
+          DISPLAY_SYSTEM_USERS = 1,
+          DISPLAY_LOCAL_GROUPS,
+          DISPLAY_GLOBAL_GROUPS,
+          CREATE_USER,
+          CREATE_GROUP,
+          DELETE_USER,
+          DELETE_GROUP,
+          ADD_USER_PRIVELEGE,
+          ADD_GROUP_PRIVELEGE,
+          DELETE_USER_PRIVELEGE,
+          DELETE_GROUP_PRIVELEGE
+     };
+}
+
 
 /// @brief Class PolicyManager for controlling users and groups in Windows
 ///
@@ -41,7 +81,12 @@ public:
 
      /// @brief Get function for policyHandle
      /// @return Policy handle
+     /// 
      LSA_HANDLE GetPolicyHandle() const;
+
+     /// @brief Method for showing information about system users
+     ///
+     void DisplayUsersInfo() const;
 
 private:
      LSA_HANDLE policyHandle_; ///< Handle to policy object on local PC
